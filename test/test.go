@@ -1,9 +1,11 @@
 package main
 
 import (
-	"fprime"
+	"fmt"
+	"layi"
 )
 
 func main() {
-	result := fprime.Fprime()
+	result := layi.Fprime(225225)
+	fmt.Println(result)
 }

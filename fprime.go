@@ -1,10 +1,18 @@
-package fprime
+package layi
 
-func Fprime(nb int) bool {
-	if IsPrime(nb) {
-		return true
+import "strconv"
+
+func Fprime(nb int) string {
+	value := nb
+	result := ""
+	for i := 2; i*i <= nb; i++ {
+		for value%i == 0 && value > 0 {
+			result += strconv.Itoa(i) + "*"
+			value = value / i
+		}
 	}
-	return false
+	result = result[:len(result)-1]
+	return result
 }
 
 func IsPrime(n int) bool {
