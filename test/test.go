@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
-	result := layi.Fprime(225225)
-	fmt.Println(result)
+
+	nubmers := layi.ItoaBase(234222379, 15)
+	fmt.Println(nubmers)
+
 }
