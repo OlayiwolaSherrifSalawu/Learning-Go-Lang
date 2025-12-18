@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"layi"
+	"os"
 )
 
 func main() {
-
-	nubmers := layi.ItoaBase(234222379, 15)
-	fmt.Println(nubmers)
-
+	if len(os.Args) <= 1 {
+		return
+	}
+	argss := os.Args[1]
+	arggs2 := os.Args[2]
+	layi.Union(argss, arggs2)
 }
