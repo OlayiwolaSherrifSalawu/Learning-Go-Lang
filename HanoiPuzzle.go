@@ -20,10 +20,10 @@ No disk may be placed on top of a smaller disk.
 
 func TowerOfHanoi(n int, SourcePeg, DestinationPeg, aux rune) {
 	if n == 1 {
-		fmt.Printf("move from Destination %c, to source peg %c", SourcePeg, DestinationPeg)
+		fmt.Printf("move from Destination %c , to source peg %c ", SourcePeg, DestinationPeg)
 		return
 	}
 	TowerOfHanoi(n-1, SourcePeg, aux, DestinationPeg)
-	fmt.Printf("\n n %d move from Destination %c, to source peg %c", n, SourcePeg, DestinationPeg)
+	fmt.Printf("\n n %d  move from Destination  %c , to source peg  %c ", n, SourcePeg, DestinationPeg)
 	TowerOfHanoi(n-1, aux, DestinationPeg, SourcePeg)
 }
