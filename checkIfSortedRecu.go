@@ -12,4 +12,4 @@ func RecuIsSorted(arr []int, n int) (bool, int) {
 }
 
 // Time Complexity O(n)
-// the recursive method for is sorted seems to be faster than the iteratetive method
+// the recursive method for is sorted and iteratetive method have the same time complexity

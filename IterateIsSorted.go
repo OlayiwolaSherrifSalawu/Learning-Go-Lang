@@ -2,8 +2,8 @@ package layi
 
 func IterateIsSorted(arr []int) bool {
 	for i := 0; i < len(arr); i++ { //O(n)
-		for j := i; j < i+1; j++ { //O(n)
-			if j+1 < len(arr) {
+		for j := i; j < i+1; j++ { //O(logn)
+			if i+1 < len(arr) {
 				if arr[j+1] < arr[i] {
 					return false
 				}
@@ -13,4 +13,4 @@ func IterateIsSorted(arr []int) bool {
 	return true
 }
 
-// Time Complexity O(n**2)
+// Time Complexity O(n)
