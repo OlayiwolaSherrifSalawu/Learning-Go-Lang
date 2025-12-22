@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // linked list
 type Node struct {
 	data int
@@ -94,25 +92,26 @@ func deleteList(l *list) {
 	}
 	l.head = nil
 }
-func main() {
-	listHead := list{}
-	insertBack(&listHead, 2)
-	insertBack(&listHead, 3)
-	insertBack(&listHead, 4)
-	insertBack(&listHead, 5)
-	insertBack(&listHead, 6)
-	insertBack(&listHead, 7)
 
-	insertPosition(&listHead, 4, 9)
-	// deleteFirst(&listHead)
-	// deletePosition(&listHead, 4)
-	deleteList(&listHead)
+// func main() {
+// 	listHead := list{}
+// 	insertBack(&listHead, 2)
+// 	insertBack(&listHead, 3)
+// 	insertBack(&listHead, 4)
+// 	insertBack(&listHead, 5)
+// 	insertBack(&listHead, 6)
+// 	insertBack(&listHead, 7)
 
-	for listHead.head != nil {
-		data := listHead.head.data
-		fmt.Print(data)
-		fmt.Print("->")
-		listHead.head = listHead.head.next
-	}
-	fmt.Println()
-}
+// 	insertPosition(&listHead, 4, 9)
+// 	// deleteFirst(&listHead)
+// 	// deletePosition(&listHead, 4)
+// 	deleteList(&listHead)
+
+// 	for listHead.head != nil {
+// 		data := listHead.head.data
+// 		fmt.Print(data)
+// 		fmt.Print("->")
+// 		listHead.head = listHead.head.next
+// 	}
+// 	fmt.Println()
+// }
