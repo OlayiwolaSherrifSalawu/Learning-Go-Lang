@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // linked list
 type Node struct {
 	data int
@@ -30,6 +32,7 @@ func insertFront(l *list, data int) {
 
 func insertBack(l *list, data int) {
 	node := &Node{data: data}
+	// node.data = data
 	if l.head == nil {
 		l.head = node
 		l.tail = node
@@ -38,7 +41,34 @@ func insertBack(l *list, data int) {
 	l.tail.next = node
 	l.tail = node
 }
+func insertPosition(l *list, position, data int) {
+	k := 1
+	node := &Node{data: data}
+	current := l.head
 
+	for current != nil && k < position-1 {
+		k++
+		current = current.next
+	}
+	node.next = current.next
+	current.next = node
+}
 func main() {
+	listHead := list{}
+	insertBack(&listHead, 2)
+	insertBack(&listHead, 3)
+	insertBack(&listHead, 4)
+	insertBack(&listHead, 5)
+	insertBack(&listHead, 6)
+	insertBack(&listHead, 7)
+
+	insertPosition(&listHead, 4, 9)
+
+	for listHead.head != nil {
+		data := listHead.head.data
+		fmt.Print(data)
+		fmt.Print("->")
+		listHead.head = listHead.head.next
+	}
 
 }
