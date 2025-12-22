@@ -71,6 +71,18 @@ func deletelast(l *list) {
 	prev.next = nil
 	l.tail = prev
 }
+func deletePosition(l *list, position int) {
+	k := 1
+	prev := l.head
+	current := l.head.next
+	for prev != nil && k < position-1 {
+		k++
+		current = current.next
+		prev = prev.next
+	}
+	place := current.next
+	prev.next = place
+}
 func main() {
 	listHead := list{}
 	insertBack(&listHead, 2)
@@ -82,7 +94,7 @@ func main() {
 
 	insertPosition(&listHead, 4, 9)
 	// deleteFirst(&listHead)
-	deletelast(&listHead)
+	deletePosition(&listHead, 4)
 
 	for listHead.head != nil {
 		data := listHead.head.data
@@ -90,5 +102,5 @@ func main() {
 		fmt.Print("->")
 		listHead.head = listHead.head.next
 	}
-
+	fmt.Println()
 }
