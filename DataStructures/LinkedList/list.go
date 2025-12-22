@@ -12,6 +12,7 @@ type list struct {
 	tail *Node
 }
 
+// list insertions
 func insertFront(l *list, data int) {
 	// current :=
 	node := &Node{data: data}
@@ -53,6 +54,16 @@ func insertPosition(l *list, position, data int) {
 	node.next = current.next
 	current.next = node
 }
+
+// list deletion
+func deleteFirst(l *list) {
+
+	// node := &Node{}
+	temp := l.head.next
+	l.head = temp
+
+}
+
 func main() {
 	listHead := list{}
 	insertBack(&listHead, 2)
@@ -63,6 +74,7 @@ func main() {
 	insertBack(&listHead, 7)
 
 	insertPosition(&listHead, 4, 9)
+	deleteFirst(&listHead)
 
 	for listHead.head != nil {
 		data := listHead.head.data
