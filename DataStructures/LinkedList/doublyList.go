@@ -40,7 +40,7 @@ func insertDDB(l *Dlist, data int) {
 	node.prev = current
 	current.next = node
 }
-func deletepositionDD(l *Dlist, position int, data int) {
+func insertpositionDD(l *Dlist, position int, data int) {
 	node := &DLLNode{data: data}
 	k := 1
 	if l.head == nil {
@@ -67,7 +67,7 @@ func main() {
 	insertDDF(node, 4)
 	insertDDF(node, 5)
 	insertDDF(node, 6)
-	deletepositionDD(node, 3, 7)
+	insertpositionDD(node, 3, 7)
 	for node.head != nil {
 		fmt.Print(node.head.data, "->")
 		node.head = node.head.next
