@@ -59,6 +59,44 @@ func insertpositionDD(l *Dlist, position int, data int) {
 	prevv.prev = node
 }
 
+// deletion of doubly linked list
+
+func deletefirstD(l *Dlist) {
+	temp := l.head.next
+	l.head = temp
+	temp.prev = nil
+
+}
+func deleteLastD(l *Dlist) {
+	prev := l.head
+	current := l.head.next
+	for current.next != nil {
+		prev = prev.next
+		current = current.next
+	}
+	// fmt.Println(prev)
+	prev.next = nil
+	current.prev = nil
+	current = nil
+}
+func deletePositionD(l *Dlist, Position int) {
+	k := 1
+	current := l.head.next
+	prev := l.head
+	nextCurrent := current.next
+	for current.next != nil && k < Position-1 {
+		k++
+		prev = prev.next
+		nextCurrent = nextCurrent.next
+		current = current.next
+	}
+	// fmt.Println("current", current, "prev", prev, "NextCurrent", nextCurrent)
+	prev.next = nextCurrent
+	nextCurrent.prev = prev
+	current.prev = nil
+	current.next = nil
+	current = nil
+}
 func main() {
 	node := &Dlist{}
 	// ddlist := node.head
@@ -68,6 +106,7 @@ func main() {
 	insertDDF(node, 5)
 	insertDDF(node, 6)
 	insertpositionDD(node, 3, 7)
+	deletePositionD(node, 4)
 	for node.head != nil {
 		fmt.Print(node.head.data, "->")
 		node.head = node.head.next
