@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type DLLNode struct {
 	data int
 	next *DLLNode
@@ -97,19 +95,20 @@ func deletePositionD(l *Dlist, Position int) {
 	current.next = nil
 	current = nil
 }
-func main() {
-	node := &Dlist{}
-	// ddlist := node.head
-	insertDDF(node, 2)
-	insertDDF(node, 3)
-	insertDDF(node, 4)
-	insertDDF(node, 5)
-	insertDDF(node, 6)
-	insertpositionDD(node, 3, 7)
-	deletePositionD(node, 4)
-	for node.head != nil {
-		fmt.Print(node.head.data, "->")
-		node.head = node.head.next
-	}
-	fmt.Println()
-}
+
+// func main() {
+// 	node := &Dlist{}
+// 	// ddlist := node.head
+// 	insertDDF(node, 2)
+// 	insertDDF(node, 3)
+// 	insertDDF(node, 4)
+// 	insertDDF(node, 5)
+// 	insertDDF(node, 6)
+// 	insertpositionDD(node, 3, 7)
+// 	deletePositionD(node, 4)
+// 	for node.head != nil {
+// 		fmt.Print(node.head.data, "->")
+// 		node.head = node.head.next
+// 	}
+// 	fmt.Println()
+// }
