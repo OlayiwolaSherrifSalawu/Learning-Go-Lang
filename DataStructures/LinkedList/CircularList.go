@@ -17,10 +17,14 @@ func CountNode(l *Clist) {
 		fmt.Println(count)
 		return
 	}
+	// prev := l.head.next
 	current := l.head
-	for current != l.head {
+	for {
 		count++
 		current = current.next
+		if current == l.head {
+			break
+		}
 	}
 	fmt.Println(count)
 }
@@ -53,10 +57,13 @@ func main() {
 
 	CountNode(node)
 	current := node.head
-	for current.next != node.head {
+	for {
 		fmt.Print(current.data)
-		fmt.Print("->")
 		current = current.next
+		fmt.Print("->")
+		if current == node.head {
+			break
+		}
 	}
 	fmt.Println()
 }
