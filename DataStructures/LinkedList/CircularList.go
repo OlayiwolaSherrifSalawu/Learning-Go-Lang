@@ -56,6 +56,34 @@ func circularFront(l *Clist, data int) {
 	tailNode.next = node
 	l.head = node
 }
+func deletelastNode(l Clist) {
+	prev := l.head
+	tailNode := l.head.next
+	for tailNode.next != l.head {
+		prev = prev.next
+		tailNode = tailNode.next
+	}
+	prev.next = l.head
+	tailNode.next = nil
+	tailNode = nil
+}
+func deleteFirstNode(l Clist) {
+	if l.head == nil {
+		return
+	}
+	temp := l.head
+	if l.head.next == l.head {
+		l.head = nil
+	}
+	tailNode := l.head
+	for tailNode.next != l.head {
+		tailNode = tailNode.next
+	}
+	tailNode.next = l.head.next
+	l.head = l.head.next
+	// temp = nil
+	temp.next = nil
+}
 func main() {
 	node := &Clist{}
 	circularFront(node, 1)
@@ -66,7 +94,7 @@ func main() {
 	circularFront(node, 6)
 	circularFront(node, 7)
 	circularFront(node, 8)
-
+	deleteFirstNode(*node)
 	CountNode(node)
 	current := node.head
 	for {
