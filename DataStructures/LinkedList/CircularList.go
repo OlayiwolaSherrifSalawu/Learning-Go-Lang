@@ -43,17 +43,29 @@ func insertCf(l *Clist, data int) {
 	thehead.next = node
 
 }
-
+func circularFront(l *Clist, data int) {
+	node := &Cll{data: data}
+	if l.head == nil {
+		l.head = node
+	}
+	node.next = l.head
+	tailNode := l.head
+	for tailNode.next != l.head {
+		tailNode = tailNode.next
+	}
+	tailNode.next = node
+	l.head = node
+}
 func main() {
 	node := &Clist{}
-	insertCf(node, 1)
-	insertCf(node, 2)
-	insertCf(node, 3)
-	insertCf(node, 4)
-	insertCf(node, 5)
-	insertCf(node, 6)
-	insertCf(node, 7)
-	insertCf(node, 8)
+	circularFront(node, 1)
+	circularFront(node, 2)
+	circularFront(node, 3)
+	circularFront(node, 4)
+	circularFront(node, 5)
+	circularFront(node, 6)
+	circularFront(node, 7)
+	circularFront(node, 8)
 
 	CountNode(node)
 	current := node.head
