@@ -71,7 +71,7 @@ func deleteFirstNode(l Clist) {
 	if l.head == nil {
 		return
 	}
-	temp := l.head
+	// temp := l.head
 	if l.head.next == l.head {
 		l.head = nil
 	}
@@ -79,10 +79,11 @@ func deleteFirstNode(l Clist) {
 	for tailNode.next != l.head {
 		tailNode = tailNode.next
 	}
-	tailNode.next = l.head.next
 	l.head = l.head.next
+	tailNode.next = l.head
+
 	// temp = nil
-	temp.next = nil
+	// temp.next = nil
 }
 func main() {
 	node := &Clist{}
