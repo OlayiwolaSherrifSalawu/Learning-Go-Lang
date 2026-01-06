@@ -98,7 +98,7 @@ func deletePositionD(l *Dlist, Position int) {
 
 // func main() {
 // 	node := &Dlist{}
-// 	// ddlist := node.head
+// 	//&
 // 	insertDDF(node, 2)
 // 	insertDDF(node, 3)
 // 	insertDDF(node, 4)

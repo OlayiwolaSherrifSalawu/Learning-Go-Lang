@@ -1,4 +1,4 @@
-package main
+package stacks
 
 import "fmt"
 
@@ -43,7 +43,4 @@ func Pop(S *ArrayStack) {
 func DeleteStack(S *ArrayStack) {
 	S.array = nil
 	S = nil
-}
-func main() {
-
 }
