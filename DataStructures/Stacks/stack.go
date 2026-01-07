@@ -44,3 +44,11 @@ func DeleteStack(S *ArrayStack) {
 	S.array = nil
 	S = nil
 }
+
+// SOlving a problem
+// Question : Discuss how stacks can be used for checking balancing of symbols.
+
+// Solution: Stacks can be used to check whether the given expression has balanced symbols. This
+// algorithm is very useful in compilers. Each time the parser reads one character at a time. If the
+// character is an opening delimiter such as (, {, or [- then it is written to the stack. When a closing
+// delimiter is encountered like ), }, or ]-the stack is popped.
