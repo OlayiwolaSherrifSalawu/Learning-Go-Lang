@@ -1,20 +1,22 @@
 package stacks
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var maxSize int = 10
 
 type ArrayStack struct {
 	top     int
 	capcity int
-	array   []*int
+	array   []*interface{}
 }
 
 func createStack() *ArrayStack {
 	S := &ArrayStack{}
 	S.capcity = maxSize
 	S.top = -1
-	S.array = make([]*int, S.capcity)
+	S.array = make([]*interface{}, S.capcity)
 	return S
 }
 
@@ -24,7 +26,7 @@ func IsEmptyStack(S *ArrayStack) bool {
 func IsFullStack(S *ArrayStack) bool {
 	return (S.top == S.capcity-1)
 }
-func Push(S *ArrayStack, data int) {
+func Push(S *ArrayStack, data interface{}) {
 	if IsFullStack(S) {
 		fmt.Println("Stack OverFlow")
 		return
@@ -71,7 +73,24 @@ c) At end of input, if the stack is not empty report an error*/
 func balance(Input string) {
 	lenGt := len(Input)
 	stack := createStack()
+	stack.capcity = lenGt
 	for i := 0; i < lenGt; i++ {
-
+		if Input[i] == '(' || Input[i] == '[' || Input[i] == '{' {
+			Push(stack, Input[i])
+		}
+		if i != 0 && i-1 >= 0 {
+			if Input[i] == ')' && Input[i-1] == '(' {
+				PopStack(stack)
+			} else if Input[i] == ']' && Input[i-1] == '[' {
+				PopStack(stack)
+			} else if Input[i] == '}' && Input[i-1] == '{' {
+				PopStack(stack)
+			} else {
+				fmt.Println("error")
+			}
+		}
+	}
+	if !IsEmptyStack(stack) {
+		fmt.Println("Error")
 	}
 }

@@ -15,7 +15,7 @@ func IsFullStacks(S *ArrayStack) bool {
 //	func IsEmptyStacks(S *ArrayStack) bool {
 //		return S.top == -1
 //	}
-func PushDynStack(S *ArrayStack, data int) {
+func PushDynStack(S *ArrayStack, data interface{}) {
 	if IsFullStack(S) {
 		DoubleStstack(S)
 	} else {
