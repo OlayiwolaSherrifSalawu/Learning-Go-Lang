@@ -70,27 +70,28 @@ error.
 }
 c) At end of input, if the stack is not empty report an error*/
 
-func balance(Input string) {
+func balance(Input string) bool {
 	lenGt := len(Input)
 	stack := createStack()
 	stack.capcity = lenGt
+	var items map[byte]byte = map[byte]byte{
+		'(': ')',
+		'[': ']',
+		'{': '}',
+	}
+
 	for i := 0; i < lenGt; i++ {
-		if Input[i] == '(' || Input[i] == '[' || Input[i] == '{' {
-			Push(stack, Input[i])
+		val, ok := items[Input[i]]
+		if ok {
+			Push(stack, val)
+			continue
 		}
-		if i != 0 && i-1 >= 0 {
-			if Input[i] == ')' && Input[i-1] == '(' {
-				PopStack(stack)
-			} else if Input[i] == ']' && Input[i-1] == '[' {
-				PopStack(stack)
-			} else if Input[i] == '}' && Input[i-1] == '{' {
-				PopStack(stack)
-			} else {
-				fmt.Println("error")
-			}
+		if Input[i] == val && Input[i] == byte(stack.top) {
+			Pop(stack)
 		}
 	}
 	if !IsEmptyStack(stack) {
-		fmt.Println("Error")
+		return false
 	}
+	return true
 }
