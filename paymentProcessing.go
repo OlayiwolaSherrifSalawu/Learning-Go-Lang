@@ -31,7 +31,8 @@ type ResponseModel struct {
 	Processedat   time.Time
 }
 type CheckOut struct {
-	GateWay PaymentMethod
+	GateWay       PaymentMethod
+	OrderDatabase OrderManager
 }
 
 // Dependency Injection.
@@ -97,7 +98,7 @@ func (pp PaymentProcessor) ProcessPayment(amount float64) error {
 	return nil
 }
 
-func (cc CheckOut) CompleteCheckout(orders Order) (OrderDetail, error) {
+func (cc *CheckOut) CompleteCheckout(orders Order) (OrderDetail, error) {
 
 	// check  if incoming order is empty or has no item
 	if orders.Items == nil || orders.TotalAmount == 0.0 {
@@ -123,19 +124,19 @@ func (cc CheckOut) CompleteCheckout(orders Order) (OrderDetail, error) {
 	}
 	// parse all this to the gateway
 	InitResponse := cc.GateWay.Authorize(Request)
+	if InitResponse.ErrorMessage != nil {
+		return OrderDetail{IsCompleted: false, Status: "FAILED", ProccessedAt: InitResponse.Processedat}, InitResponse.ErrorMessage
+	}
 	Capture := cc.GateWay.Capture(InitResponse.TransactionId)
 	if Capture.Success == true {
-		Processed := cc.GateWay.ProcessPayment(amount)
-		if Processed == nil {
-			orders.PaymentRefrence = Capture.TransactionId
-			orders.PaymentStatus = "PAID"
-			orders.OrderDate = Capture.Processedat
-			orders.TotalAmount = amount
-			OrderManager.OrderStore = append(orders)
-			return OrderDetail{IsCompleted: true, Status: "Paid", ProccessedAt: Capture.Processedat}, nil
-		} else {
-			return OrderDetail{IsCompleted: false, Status: "FAILED", ProccessedAt: Capture.Processedat}, errors.New("Could not complete the payment processes")
-		}
+
+		orders.PaymentRefrence = Capture.TransactionId
+		orders.PaymentStatus = "PAID"
+		orders.OrderDate = Capture.Processedat
+		orders.TotalAmount = amount
+		cc.OrderDatabase.OrderStore = append(cc.OrderDatabase.OrderStore, orders)
+		return OrderDetail{IsCompleted: true, Status: "Paid", ProccessedAt: Capture.Processedat}, nil
+
 	} else {
 		return OrderDetail{IsCompleted: false, Status: "FAILED", ProccessedAt: Capture.Processedat}, errors.New("Could not complete the payment processes")
 	}
