@@ -29,6 +29,7 @@ type Order struct {
 	OrderDate   time.Time
 	Items       []Item
 	TotalAmount float64
+	
 }
 
 func (total *OrderManager) Details(custId string) {
