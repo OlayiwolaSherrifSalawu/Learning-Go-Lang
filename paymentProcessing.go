@@ -13,9 +13,9 @@ type PaymentMethod interface {
 	Authorize(account RequestModel) ResponseModel
 	Capture(transactionId string) ResponseModel
 }
-type OrderDetail struct{
-	IsCompleted bool
-	Status string
+type OrderDetail struct {
+	IsCompleted  bool
+	Status       string
 	ProccessedAt time.Time
 }
 type RequestModel struct {
@@ -97,7 +97,47 @@ func (pp PaymentProcessor) ProcessPayment(amount float64) error {
 	return nil
 }
 
+func (cc CheckOut) CompleteCheckout(orders Order) (OrderDetail, error) {
 
-func (cc CheckOut) CompleteCheckout() (OrderDetail, error){
-	
+	// check  if incoming order is empty or has no item
+	if orders.Items == nil || orders.TotalAmount == 0.0 {
+		return OrderDetail{Status: "FAILED"}, errors.New("Cannot CheckOut an empty catalogue")
+	}
+	// we dont want to checkout one order more than once
+	// i could do this by iterating through the store and if the orderId as occured before we stop the function.
+	// Or i could check the incoming order status if its empty then it is a new order and then i change it to pending else i stop
+	// doing the first.
+	// (I could'nt access the OrderStore from this method so i would try the second approach)
+	if orders.PaymentStatus == "" {
+		orders.PaymentStatus = "Pending"
+	} else {
+		return OrderDetail{Status: "FAILED"}, errors.New("Order is already existing and order status: " + orders.PaymentStatus)
+	}
+	// Calculate the total amount
+	amount := orders.CalculateTotal()
+	secureToken := "succes_token"
+	Request := RequestModel{
+		IncomingAmount: amount,
+		SecureToken:    secureToken,
+		RequestId:      orders.OrderId,
+	}
+	// parse all this to the gateway
+	InitResponse := cc.GateWay.Authorize(Request)
+	Capture := cc.GateWay.Capture(InitResponse.TransactionId)
+	if Capture.Success == true {
+		Processed := cc.GateWay.ProcessPayment(amount)
+		if Processed == nil {
+			orders.PaymentRefrence = Capture.TransactionId
+			orders.PaymentStatus = "PAID"
+			orders.OrderDate = Capture.Processedat
+			orders.TotalAmount = amount
+			OrderManager.OrderStore = append(orders)
+			return OrderDetail{IsCompleted: true, Status: "Paid", ProccessedAt: Capture.Processedat}, nil
+		} else {
+			return OrderDetail{IsCompleted: false, Status: "FAILED", ProccessedAt: Capture.Processedat}, errors.New("Could not complete the payment processes")
+		}
+	} else {
+		return OrderDetail{IsCompleted: false, Status: "FAILED", ProccessedAt: Capture.Processedat}, errors.New("Could not complete the payment processes")
+	}
+
 }

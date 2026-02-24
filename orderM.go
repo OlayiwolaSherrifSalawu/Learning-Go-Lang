@@ -24,12 +24,13 @@ type CustomerInfo struct {
 	Email      string
 }
 type Order struct {
-	OrderId     string
-	CustomerId  string
-	OrderDate   time.Time
-	Items       []Item
-	TotalAmount float64
-	
+	OrderId         string
+	CustomerId      string
+	OrderDate       time.Time
+	Items           []Item
+	TotalAmount     float64
+	PaymentStatus   string
+	PaymentRefrence string
 }
 
 func (total *OrderManager) Details(custId string) {
